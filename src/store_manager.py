@@ -12,8 +12,17 @@ from orders.controllers.order_controller import create_order, remove_order, get_
 from orders.controllers.user_controller import create_user, remove_user, get_user
 from stocks.controllers.product_controller import create_product, remove_product, get_product
 from stocks.controllers.stock_controller import get_stock, set_stock, get_stock_overview
- 
+import threading
+
 app = Flask(__name__)
+
+def generate_reports_and_cache():
+    threading.Timer(2.0, get_report_highest_spending_users, args=(True,)).start()
+    threading.Timer(2.0, get_report_best_selling_products, args=(True,)).start()
+    threading.Timer(60.0, generate_reports_and_cache).start()
+
+
+generate_reports_and_cache()
 
 counter_orders = Counter('orders', 'Total calls to /orders')
 counter_highest_spenders = Counter('highest-spenders', 'Total calls to /highest-spenders')
