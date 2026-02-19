@@ -20,17 +20,20 @@ La requête GET /orders/reports/highest-spenders échoue à 82% (718/870)
 ![alt text](image.png)
 ## 3.   Affichez quelques exemples des messages d'erreur affichés dans l'onglet Failures. Ces messages indiquent une défaillance dans quelle(s) partie(s) du Store Manager ? Par exemple, est-ce que le problème vient du service Python / MySQL / Redis / autre ?
 
-Les messages d'erreurs proviennent principalement du service MySQL dû au  fait qu'il y a trop de connexions au service.
+Les messages d'erreurs proviennent principalement du service MySQL dû au  fait qu'il y a trop de connexions au service (1040).
 
 CatchResponseError('Erreur : 500 - (mysql.connector.errors.OperationalError) 1040 (08004): Too many connections\n(Background on this error at: https://sqlalche.me/e/20/e3q8)')
 
-CatchResponseError('Erreur : 500 - Aucun JSON dans la réponse. Message : <!doctype html>\n<html lang=en>\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>\n')
+Lorsque MySQL ne répond plus, le service Python ne peut plus gérer les requêtes et envoie des erreurs 500 du système.
 
-Il y a aussi des erreurs python:
-Exception('Aucune réponse (erreur ou timeout)')
-RetriesExceeded('http://store_manager:5000/orders', 0, original=timed out)
+CatchResponseError('Erreur : 500 - Aucun JSON dans la réponse. Message : 500 Internal Server Error
+Internal Server Error
+The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.')
 
-## 4. 
+
+## 4.   Sur l'onglet Statistics, comparez les résultats actuels avec les résultats du test de charge précédent. Est-ce que vous voyez quelques différences dans les métriques pour l'endpoint POST /orders ?
+
+    
 ## 5. Quels résultats avez-vous obtenus en utilisant l’endpoint POST /stocks/graphql-query avec les améliorations ? Veuillez joindre la sortie de votre requête dans Postman afin d’illustrer votre réponse.
 La requête retoure les informations sur le produit ainsi que la quantité.
 
