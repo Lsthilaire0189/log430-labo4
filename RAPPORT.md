@@ -33,9 +33,17 @@ The server encountered an internal error and was unable to complete your request
 
 ## 4.   Sur l'onglet Statistics, comparez les résultats actuels avec les résultats du test de charge précédent. Est-ce que vous voyez quelques différences dans les métriques pour l'endpoint POST /orders ?
 
+Les métriques pour les résultats actuels et les résultats du test de charge précédent sont très similaires puisque le nombre de connexions maximum de MySQL est atteint indépendamment de l'amélioration de /orders. Le POST /orders prend plus de temps à exécuter, ce qui permet aux autres requêtes GET de saturer le système avant qu'il y ait une amélioration pour l'ajout de commandes.
 
+Activité 5
+![Activité 5](image-2.png) 
+
+Activité 6
+![Activité 6](image-1.png)
     
 ## 5. Si nous avions plus d'articles dans notre base de données (par exemple, 1 million), ou simplement plus d'articles par commande en moyenne, le temps de réponse de l'endpoint POST /orders augmenterait-il, diminuerait-il ou resterait-il identique ?
+
+Le temps de réponse augmenterait puisque la base de donnée doit filtrer plus de produits et retourner la liste qui contient plus d'item. Par rapport au code initial, le nombre de requêtes est grandement réduit mais la taille de la requête SQL risque d'être plus lourde à traiter.
 
 ## 6.   Sur l'onglet Statistics, comparez les résultats actuels avec les résultats du test de charge précédent. Est-ce que vous voyez quelques différences significatives dans les métriques pour les endpoints POST /orders, GET /orders/reports/highest-spenders et GET /orders/reports/best-sellers ? Dans quelle mesure la performance s'est-elle améliorée ou détériorée (par exemple, en pourcentage) ?
 
